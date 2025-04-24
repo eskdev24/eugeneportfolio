@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -40,7 +39,6 @@ const Navbar = () => {
           Portfolio
         </Link>
         
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-1">
           {navItems.map((item, index) => (
             <Link 
@@ -55,7 +53,6 @@ const Navbar = () => {
                 )}
                 style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
               >
-                <span className="text-mint mr-1 text-xs">{`0${index + 1}.`}</span>
                 {item.label}
               </Button>
             </Link>
@@ -69,7 +66,6 @@ const Navbar = () => {
           </Button>
         </nav>
 
-        {/* Mobile Menu Button */}
         <button 
           className="md:hidden text-mint"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -87,7 +83,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
       <div className={cn(
         "fixed inset-0 bg-navy-dark/95 flex flex-col items-center justify-center z-40 transition-all duration-300",
         isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -103,7 +98,6 @@ const Navbar = () => {
                 variant="ghost" 
                 className="text-slate-light hover:text-mint text-lg"
               >
-                <span className="text-mint mb-1 block text-sm">{`0${index + 1}.`}</span>
                 {item.label}
               </Button>
             </Link>
