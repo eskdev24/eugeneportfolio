@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -20,19 +21,11 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
   const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'about', label: 'About', path: '/about' },
+    { id: 'projects', label: 'Projects', path: '/projects' },
+    { id: 'experience', label: 'Experience', path: '/#experience' },
+    { id: 'contact', label: 'Contact', path: '/#contact' },
   ];
 
   return (
@@ -43,32 +36,34 @@ const Navbar = () => {
       )}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <a href="#home" className="text-mint font-heading font-bold text-2xl">
+        <Link to="/" className="text-mint font-heading font-bold text-2xl">
           Portfolio
-        </a>
+        </Link>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-1">
           {navItems.map((item, index) => (
-            <Button 
-              key={item.id} 
-              variant="ghost" 
-              className={cn(
-                "text-slate hover:text-mint transition-colors",
-                "opacity-0 animate-fade-in",
-              )}
-              style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
-              onClick={() => scrollToSection(item.id)}
+            <Link 
+              key={item.id}
+              to={item.path}
             >
-              <span className="text-mint mr-1 text-xs">{`0${index + 1}.`}</span>
-              {item.label}
-            </Button>
+              <Button 
+                variant="ghost" 
+                className={cn(
+                  "text-slate hover:text-mint transition-colors",
+                  "opacity-0 animate-fade-in",
+                )}
+                style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
+              >
+                <span className="text-mint mr-1 text-xs">{`0${index + 1}.`}</span>
+                {item.label}
+              </Button>
+            </Link>
           ))}
           <Button 
             className="ml-4 opacity-0 animate-fade-in border border-mint text-mint hover:bg-mint/10"
             style={{ animationDelay: '500ms', animationFillMode: 'forwards' }}
             variant="outline"
-            onClick={() => scrollToSection('contact')}
           >
             Resume
           </Button>
@@ -99,15 +94,19 @@ const Navbar = () => {
       )}>
         <nav className="flex flex-col items-center space-y-6">
           {navItems.map((item, index) => (
-            <Button 
-              key={item.id} 
-              variant="ghost" 
-              className="text-slate-light hover:text-mint text-lg"
-              onClick={() => scrollToSection(item.id)}
+            <Link 
+              key={item.id}
+              to={item.path}
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              <span className="text-mint mb-1 block text-sm">{`0${index + 1}.`}</span>
-              {item.label}
-            </Button>
+              <Button 
+                variant="ghost" 
+                className="text-slate-light hover:text-mint text-lg"
+              >
+                <span className="text-mint mb-1 block text-sm">{`0${index + 1}.`}</span>
+                {item.label}
+              </Button>
+            </Link>
           ))}
           <Button 
             className="mt-4 border border-mint text-mint hover:bg-mint/10"
