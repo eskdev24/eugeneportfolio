@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -21,9 +22,9 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
+    { id: 'home', label: 'Home', path: '/' },
     { id: 'about', label: 'About', path: '/about' },
     { id: 'projects', label: 'Projects', path: '/projects' },
-    { id: 'experience', label: 'Experience', path: '/#experience' },
     { id: 'contact', label: 'Contact', path: '/#contact' },
   ];
 
@@ -57,13 +58,6 @@ const Navbar = () => {
               </Button>
             </Link>
           ))}
-          <Button 
-            className="ml-4 opacity-0 animate-fade-in border border-mint text-mint hover:bg-mint/10"
-            style={{ animationDelay: '500ms', animationFillMode: 'forwards' }}
-            variant="outline"
-          >
-            Resume
-          </Button>
         </nav>
 
         <button 
@@ -102,12 +96,6 @@ const Navbar = () => {
               </Button>
             </Link>
           ))}
-          <Button 
-            className="mt-4 border border-mint text-mint hover:bg-mint/10"
-            variant="outline"
-          >
-            Resume
-          </Button>
         </nav>
       </div>
     </header>

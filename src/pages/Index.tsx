@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -16,7 +15,6 @@ const Index = () => {
     <div className="min-h-screen bg-navy text-slate">
       <Navbar />
       <HeroSection />
-      <ExperienceSection />
       <ContactSection />
       <Footer />
       <ScrollToTop />

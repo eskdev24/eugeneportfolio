@@ -2,11 +2,6 @@
 import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
-  const scrollToProjects = () => {
-    const projectsSection = document.getElementById("projects");
-    projectsSection?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section id="home" className="min-h-screen flex flex-col justify-center py-20 px-6 md:px-20">
       <p className="text-mint mb-5 font-mono opacity-0 animate-fade-in">
@@ -24,11 +19,10 @@ const HeroSection = () => {
       </p>
       <div className="opacity-0 animate-fade-in animate-delay-400">
         <Button 
-          onClick={scrollToProjects}
-          className="border border-mint text-mint hover:bg-mint/10 px-7 py-5 text-base"
+          className="border border-mint text-mint hover:bg-mint/10"
           variant="outline"
         >
-          View My Work
+          Resume
         </Button>
       </div>
     </section>
