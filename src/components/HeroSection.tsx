@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 const HeroSection = () => {
@@ -38,7 +39,11 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="hidden md:block">
-        <img src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" alt="Eugene Simpson" className="w-[300px] h-[300px] rounded-full opacity-0 animate-fade-in animate-delay-500 object-fill" />
+        <img 
+          src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" 
+          alt="Eugene Simpson" 
+          className="w-[500px] h-[500px] rounded-full opacity-0 animate-fade-in animate-delay-500 object-fill" 
+        />
       </div>
     </section>;
 };
