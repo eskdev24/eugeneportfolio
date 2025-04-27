@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-
 const HeroSection = () => {
   const [displayedName, setDisplayedName] = useState("");
   const fullName = "Eugene Simpson";
@@ -16,7 +15,6 @@ const HeroSection = () => {
     }, 150);
     return () => clearInterval(typingInterval);
   }, []);
-
   return <section id="home" className="min-h-screen flex items-center justify-between py-20 px-6 md:px-20">
       <div className="flex flex-col max-w-2xl">
         <p className="text-mint mb-5 font-mono opacity-0 animate-fade-in text-2xl">
@@ -40,16 +38,11 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="hidden md:block ml-20">
-        <div className="relative group">
+        <div className="relative group rounded-lg">
           <div className="absolute -inset-1 bg-gradient-to-r from-mint via-cyan-500 to-mint rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-          <img 
-            src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" 
-            alt="Eugene Simpson" 
-            className="relative w-[500px] h-[500px] rounded-full opacity-0 animate-fade-in animate-delay-500 object-fill" 
-          />
+          <img src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" alt="Eugene Simpson" className="relative w-[500px] h-[500px] rounded-full opacity-0 animate-fade-in animate-delay-500 object-fill" />
         </div>
       </div>
     </section>;
 };
-
 export default HeroSection;
