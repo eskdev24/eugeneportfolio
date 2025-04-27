@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+
 const HeroSection = () => {
   const [displayedName, setDisplayedName] = useState("");
   const fullName = "Eugene Simpson";
+
   useEffect(() => {
     let currentIndex = 0;
     const typingInterval = setInterval(() => {
@@ -15,6 +17,7 @@ const HeroSection = () => {
     }, 150);
     return () => clearInterval(typingInterval);
   }, []);
+
   return <section id="home" className="min-h-screen flex items-center justify-between py-20 px-6 md:px-20">
       <div className="flex flex-col max-w-2xl">
         <p className="text-mint mb-5 font-mono opacity-0 animate-fade-in text-2xl">
@@ -38,8 +41,13 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="hidden md:block">
-        <img src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" alt="Eugene Simpson" className="w-[400px] rounded-lg opacity-0 animate-fade-in animate-delay-500 object-contain" />
+        <img 
+          src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" 
+          alt="Eugene Simpson" 
+          className="w-[300px] h-[300px] rounded-full object-cover opacity-0 animate-fade-in animate-delay-500" 
+        />
       </div>
     </section>;
 };
+
 export default HeroSection;
