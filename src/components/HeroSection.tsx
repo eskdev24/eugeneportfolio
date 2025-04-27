@@ -40,7 +40,7 @@ const HeroSection = () => {
       <div className="hidden md:block ml-20">
         <div className="relative group rounded-lg">
           <div className="absolute -inset-1 bg-gradient-to-r from-mint via-cyan-500 to-mint rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-          <img src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" alt="Eugene Simpson" className="relative w-[500px] h-[500px] rounded-full opacity-0 animate-fade-in animate-delay-500 object-fill" />
+          <img alt="Eugene Simpson" src="/lovable-uploads/11a4b51a-d8a9-47a2-8d8d-bcbb9439cdca.jpg" className="relative w-[500px] h-[500px] rounded-full opacity-0 animate-fade-in animate-delay-500 object-cover" />
         </div>
       </div>
     </section>;
