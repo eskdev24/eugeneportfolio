@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -102,7 +101,18 @@ export default {
 				blink: {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0' }
-				}
+				},
+				tilt: {
+					'0%, 50%, 100%': {
+						transform: 'rotate(0deg)',
+					},
+					'25%': {
+						transform: 'rotate(1deg)',
+					},
+					'75%': {
+						transform: 'rotate(-1deg)',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -110,7 +120,8 @@ export default {
 				'fade-in': 'fadeIn 0.5s ease-out forwards',
 				'fade-in-left': 'fadeInLeft 0.5s ease-out forwards',
 				'fade-in-right': 'fadeInRight 0.5s ease-out forwards',
-				'cursor-blink': 'blink 1s step-end infinite'
+				'cursor-blink': 'blink 1s step-end infinite',
+				'tilt': 'tilt 10s infinite linear',
 			}
 		}
 	},
