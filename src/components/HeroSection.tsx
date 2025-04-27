@@ -38,7 +38,7 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="hidden md:block">
-        <img src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" alt="Eugene Simpson" className="w-[400px] rounded-lg opacity-0 animate-fade-in animate-delay-500" />
+        <img src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" alt="Eugene Simpson" className="w-[400px] rounded-lg opacity-0 animate-fade-in animate-delay-500 object-contain" />
       </div>
     </section>;
 };
