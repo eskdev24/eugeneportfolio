@@ -1,11 +1,8 @@
-
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-
 const HeroSection = () => {
   const [displayedName, setDisplayedName] = useState("");
   const fullName = "Eugene Simpson";
-  
   useEffect(() => {
     let currentIndex = 0;
     const typingInterval = setInterval(() => {
@@ -16,17 +13,14 @@ const HeroSection = () => {
         clearInterval(typingInterval);
       }
     }, 150);
-
     return () => clearInterval(typingInterval);
   }, []);
-
-  return (
-    <section id="home" className="min-h-screen flex items-center justify-between py-20 px-6 md:px-20">
+  return <section id="home" className="min-h-screen flex items-center justify-between py-20 px-6 md:px-20">
       <div className="flex flex-col max-w-2xl">
         <p className="text-mint mb-5 font-mono opacity-0 animate-fade-in text-2xl">
           Hi, my name is
         </p>
-        <h1 className="text-4xl mb-4 text-cyan-600 font-bold md:text-6xl flex items-center">
+        <h1 className="text-4xl mb-4 text-cyan-600 font-bold flex items-center md:text-5xl">
           {displayedName}
           <span className="animate-cursor-blink ml-1">|</span>
         </h1>
@@ -44,14 +38,8 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="hidden md:block">
-        <img 
-          src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" 
-          alt="Eugene Simpson" 
-          className="w-[400px] rounded-lg opacity-0 animate-fade-in animate-delay-500"
-        />
+        <img src="/lovable-uploads/e5b90462-ee3e-4b45-a303-2b5e00e41159.png" alt="Eugene Simpson" className="w-[400px] rounded-lg opacity-0 animate-fade-in animate-delay-500" />
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
