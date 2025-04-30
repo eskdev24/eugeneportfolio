@@ -18,6 +18,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Eye, EyeOff } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
+import { handleAppwriteError } from '@/lib/appwrite';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -37,6 +40,9 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 
 const Auth = () => {
   const [activeTab, setActiveTab] = useState<string>('login');
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { login, register: registerUser } = useAuth();
   const navigate = useNavigate();
 
@@ -60,21 +66,50 @@ const Auth = () => {
 
   const onLoginSubmit = async (data: LoginFormValues) => {
     try {
+      setIsLoading(true);
       await login(data.email, data.password);
+      toast({
+        title: "Login successful",
+        description: "You have been logged in successfully",
+      });
       navigate('/');
     } catch (error) {
+      const errorMessage = handleAppwriteError(error);
+      toast({
+        title: "Login failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
       console.error('Login error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const onRegisterSubmit = async (data: RegisterFormValues) => {
     try {
+      setIsLoading(true);
       await registerUser(data.email, data.password, data.name);
+      toast({
+        title: "Registration successful",
+        description: "Your account has been created and you are now logged in",
+      });
       navigate('/');
     } catch (error) {
+      const errorMessage = handleAppwriteError(error);
+      toast({
+        title: "Registration failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
       console.error('Registration error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <div className="min-h-screen bg-navy text-slate">
@@ -113,15 +148,34 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel className="text-slate-light">Password</FormLabel>
                         <FormControl>
-                          <Input type="password" placeholder="********" {...field} />
+                          <div className="relative">
+                            <Input 
+                              type={showPassword ? "text" : "password"} 
+                              placeholder="********" 
+                              {...field} 
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-0 top-0 h-full px-3 text-slate-light hover:text-mint"
+                              onClick={togglePasswordVisibility}
+                            >
+                              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                            </Button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                   
-                  <Button type="submit" className="w-full bg-mint hover:bg-mint/80 text-navy">
-                    Login
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-mint hover:bg-mint/80 text-navy"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Logging in..." : "Login"}
                   </Button>
                 </form>
               </Form>
@@ -165,7 +219,22 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel className="text-slate-light">Password</FormLabel>
                         <FormControl>
-                          <Input type="password" placeholder="********" {...field} />
+                          <div className="relative">
+                            <Input 
+                              type={showPassword ? "text" : "password"} 
+                              placeholder="********" 
+                              {...field}
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-0 top-0 h-full px-3 text-slate-light hover:text-mint"
+                              onClick={togglePasswordVisibility}
+                            >
+                              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                            </Button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -179,15 +248,34 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel className="text-slate-light">Confirm Password</FormLabel>
                         <FormControl>
-                          <Input type="password" placeholder="********" {...field} />
+                          <div className="relative">
+                            <Input 
+                              type={showConfirmPassword ? "text" : "password"} 
+                              placeholder="********" 
+                              {...field}
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-0 top-0 h-full px-3 text-slate-light hover:text-mint"
+                              onClick={toggleConfirmPasswordVisibility}
+                            >
+                              {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                            </Button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                   
-                  <Button type="submit" className="w-full bg-mint hover:bg-mint/80 text-navy">
-                    Register
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-mint hover:bg-mint/80 text-navy"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Registering..." : "Register"}
                   </Button>
                 </form>
               </Form>

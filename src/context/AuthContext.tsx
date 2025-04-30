@@ -1,6 +1,6 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { account } from '@/lib/appwrite';
+import { account, handleAppwriteError } from '@/lib/appwrite';
 import { Models } from 'appwrite';
 import { useToast } from '@/hooks/use-toast';
 
@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const currentUser = await account.get();
         setUser(currentUser);
       } catch (error) {
+        // Don't show error toast here since it's just checking session status
         setUser(null);
       } finally {
         setIsLoading(false);
@@ -36,19 +37,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await account.createEmailSession(email, password);
       const currentUser = await account.get();
       setUser(currentUser);
-      toast({
-        title: 'Login successful',
-        description: `Welcome back, ${currentUser.name}!`,
-      });
     } catch (error: any) {
+      const errorMessage = handleAppwriteError(error);
       toast({
         title: 'Login failed',
-        description: error.message || 'Failed to login. Please try again.',
+        description: errorMessage,
         variant: 'destructive',
       });
       throw error;
@@ -58,18 +56,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const register = async (email: string, password: string, name: string) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await account.create('unique()', email, password, name);
       await login(email, password);
-      toast({
-        title: 'Registration successful',
-        description: 'Your account has been created.',
-      });
     } catch (error: any) {
+      const errorMessage = handleAppwriteError(error);
       toast({
         title: 'Registration failed',
-        description: error.message || 'Failed to register. Please try again.',
+        description: errorMessage,
         variant: 'destructive',
       });
       throw error;
@@ -79,8 +74,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await account.deleteSession('current');
       setUser(null);
       toast({
@@ -88,9 +83,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         description: 'You have been logged out.',
       });
     } catch (error: any) {
+      const errorMessage = handleAppwriteError(error);
       toast({
         title: 'Logout failed',
-        description: error.message || 'Failed to logout. Please try again.',
+        description: errorMessage,
         variant: 'destructive',
       });
     } finally {
