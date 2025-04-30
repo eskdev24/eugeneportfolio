@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -25,8 +27,12 @@ const Navbar = () => {
     { id: 'home', label: 'Home', path: '/' },
     { id: 'about', label: 'About', path: '/about' },
     { id: 'projects', label: 'Projects', path: '/projects' },
-    { id: 'contact', label: 'Contact', path: '/#contact' },
+    { id: 'contact', label: 'Contact', path: '/contact' },
   ];
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   return (
     <header 
@@ -58,6 +64,27 @@ const Navbar = () => {
               </Button>
             </Link>
           ))}
+          
+          {user ? (
+            <Button 
+              variant="ghost"
+              onClick={handleLogout}
+              className="text-slate hover:text-mint transition-colors opacity-0 animate-fade-in"
+              style={{ animationDelay: `${navItems.length * 100}ms`, animationFillMode: 'forwards' }}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Link to="/auth">
+              <Button 
+                variant="outline" 
+                className="border-mint text-mint hover:bg-mint/10 opacity-0 animate-fade-in"
+                style={{ animationDelay: `${navItems.length * 100}ms`, animationFillMode: 'forwards' }}
+              >
+                Login
+              </Button>
+            </Link>
+          )}
         </nav>
 
         <button 
@@ -96,6 +123,28 @@ const Navbar = () => {
               </Button>
             </Link>
           ))}
+          
+          {user ? (
+            <Button 
+              variant="ghost"
+              onClick={() => {
+                handleLogout();
+                setIsMobileMenuOpen(false);
+              }}
+              className="text-slate-light hover:text-mint text-lg"
+            >
+              Logout
+            </Button>
+          ) : (
+            <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button 
+                variant="outline" 
+                className="border-mint text-mint hover:bg-mint/10 text-lg"
+              >
+                Login
+              </Button>
+            </Link>
+          )}
         </nav>
       </div>
     </header>
